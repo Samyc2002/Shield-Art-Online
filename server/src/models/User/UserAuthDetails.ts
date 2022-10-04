@@ -1,5 +1,31 @@
 import { Document, model, Model, Schema } from 'mongoose';
-import * as crypto from 'crypto';
+
+interface Stats {
+  health: number;
+  attack: number;
+  defense: number;
+  speed: number;
+  regeneration: number;
+  abilities: string[];
+}
+
+const UserStats = {
+  health: Number,
+  attack: Number,
+  defense: Number,
+  speed: Number,
+  regeneration: Number,
+  abilities: [String]
+};
+
+const deafultStats = {
+  health: 100,
+  attack: 10,
+  defense: 100,
+  speed: 10,
+  regeneration: 10,
+  abilities: []
+};
 
 interface IUserDetail {
   name: string;
@@ -8,9 +34,13 @@ interface IUserDetail {
   // phone: number;
   hash: string;
   salt: string;
+  level: Number;
   created_at: string;
   updated_at: string;
   isActive: boolean;
+  stats: Stats;
+  jobs: string[];
+  weapon: string;
 }
 export type UserDetailDocument = IUserDetail & Document;
 
@@ -21,6 +51,10 @@ const UserDetailSchema: Schema<UserDetailDocument> = new Schema({
   // phone: { type: Number, required: false, default: 0 },
   hash: String,
   salt: String,
+  level: { type: Number, required: false, default: 0 },
+  stats: { type: UserStats, required: false, default: deafultStats },
+  jobs: { type: [String], required: false, default: [] },
+  weapon: { type: String, required: false, default: '' },
   created_at: {
     type: String,
     required: false,
