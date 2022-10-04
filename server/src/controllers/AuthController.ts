@@ -4,26 +4,49 @@ import { Request, Response, NextFunction } from 'express';
 import { getEnvironmentVariables } from '../environments/env';
 import UserDetail from '../models/User/UserAuthDetails';
 import { sign } from 'jsonwebtoken';
+import * as crypto from 'crypto';
 export class AuthController {
+  static setPassword(password: string) {
+    var salt = crypto.randomBytes(16).toString('hex');
+    var hash = crypto
+      .pbkdf2Sync(password, salt, 1000, 64, `sha512`)
+      .toString(`hex`);
+
+    return { hash, salt };
+  }
+
+  static validPassword(salt: string, hash: string, password: string) {
+    var hashed = crypto
+      .pbkdf2Sync(password, salt, 1000, 64, `sha512`)
+      .toString(`hex`);
+    return hash === hashed;
+  }
+
   static async login(req: Request, res: Response, next: NextFunction) {
     try {
       const query = req.body.query;
       const user = await UserDetail.findOne(query);
       if (!user) {
         // if user doesnot exists, create new user
+        const pass = AuthController.setPassword(req.body.user.pass);
         const user = new UserDetail({
-          ...req.body.user
+          name: req.body.user.name,
+          email: req.body.user.email,
+          isActive: req.body.user.isActive,
+          hash: pass.hash,
+          salt: pass.salt
         });
         await user.save();
         const token = sign(user.toJSON(), getEnvironmentVariables().jwt_secret);
         const userAuthData = {
           id: user._id,
           name: user.name,
-          phone: user.phone
+          email: user.email,
+          isActive: user.isActive
         };
         return res.status(200).json({
           data: {
-            user: JSON.stringify(userAuthData),
+            user: userAuthData,
             token
           },
           sucess: true
@@ -31,15 +54,27 @@ export class AuthController {
       }
       if (user) {
         // if user exists, get user data
+        const isValidUser = AuthController.validPassword(
+          user.salt,
+          user.hash,
+          req.body.user.pass
+        );
+        if (!isValidUser)
+          res.status(401).json({
+            data: {},
+            success: false
+          });
+
         const token = sign(user.toJSON(), getEnvironmentVariables().jwt_secret);
         const userAuthData = {
           id: user._id,
           name: user.name,
-          phone: user.phone
+          email: user.email,
+          isActive: user.isActive
         };
         return res.status(200).json({
           data: {
-            user: JSON.stringify(userAuthData),
+            user: userAuthData,
             token
           },
           success: true
