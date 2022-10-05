@@ -24,8 +24,8 @@ export class AuthSetup {
             res.status(403).json({
               status: 'error',
               data: {},
-              error: 'user not logged in',
-              success: 'user logged in'
+              error: true,
+              success: false
             });
           } else next();
         }
@@ -34,8 +34,8 @@ export class AuthSetup {
       res.status(403).json({
         status: 'error',
         data: {},
-        error: 'user not logged in',
-        success: 'user logged in'
+        error: true,
+        success: false
       });
     }
   }
