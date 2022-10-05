@@ -33,7 +33,7 @@ export class Server {
 
   setRoutes() {
     // all the server api routes go here
-    this.app.use('/auth', AuthRouter);
+    this.app.use('/user', AuthRouter);
   }
 
   connectMongoDb() {
