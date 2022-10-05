@@ -21,7 +21,7 @@ class AuthRouter {
     // add all get routes here
     this.router.get(
       '/', // path of api request
-      // AuthSetup.isAuthenticated, // checks if the request contains a valid token (checks if user is logged in. Remove this middleware if user is supposed to not be logged in).
+      AuthSetup.isAuthenticated, // checks if the request contains a valid token (checks if user is logged in. Remove this middleware if user is supposed to not be logged in).
       AuthController.getUsers // Main business logic of the server that returns the required response.
     );
   }
@@ -29,7 +29,6 @@ class AuthRouter {
     // add all post routes here
     this.router.post(
       '/login', // path of api request
-      // AuthSetup.isAuthenticated, // checks if the request contains a valid token (checks if user is logged in. Remove this middleware if user is supposed to not be logged in).
       AuthController.login // Main business logic of the server that returns the required response.
     );
   }
@@ -37,7 +36,7 @@ class AuthRouter {
     // add all get routes here
     this.router.put(
       '/update', // path of api request
-      // AuthSetup.isAuthenticated, // checks if the request contains a valid token (checks if user is logged in. Remove this middleware if user is supposed to not be logged in).
+      AuthSetup.isAuthenticated, // checks if the request contains a valid token (checks if user is logged in. Remove this middleware if user is supposed to not be logged in).
       AuthController.updateUserData // Main business logic of the server that returns the required response.
     );
   }
@@ -45,7 +44,7 @@ class AuthRouter {
     // add all get routes here
     this.router.delete(
       '/delete', // path of api request
-      // AuthSetup.isAuthenticated, // checks if the request contains a valid token (checks if user is logged in. Remove this middleware if user is supposed to not be logged in).
+      AuthSetup.isAuthenticated, // checks if the request contains a valid token (checks if user is logged in. Remove this middleware if user is supposed to not be logged in).
       AuthController.deleteUser // Main business logic of the server that returns the required response.
     );
   }
