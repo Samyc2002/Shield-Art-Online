@@ -84,4 +84,46 @@ export class AuthController {
       next(err);
     }
   }
+
+  static async getUsers(req: Request, res: Response, next: NextFunction) {
+    try {
+      const query = req.body.query;
+      const users = await UserDetail.find(query);
+      return res.status(200).json({
+        data: users,
+        success: true
+      });
+    } catch (err) {
+      next(err);
+    }
+  }
+
+  static async updateUserData(req: Request, res: Response, next: NextFunction) {
+    try {
+      const query = req.body.query;
+      const update = req.body.update;
+      const user = await UserDetail.findOneAndUpdate(query, update, {
+        new: true
+      });
+      return res.status(200).json({
+        data: user,
+        success: true
+      });
+    } catch (err) {
+      next(err);
+    }
+  }
+
+  static async deleteUser(req: Request, res: Response, next: NextFunction) {
+    try {
+      const query = req.body.query;
+      const user = await UserDetail.findOneAndDelete(query);
+      return res.status(200).json({
+        data: user,
+        success: true
+      });
+    } catch (err) {
+      next(err);
+    }
+  }
 }
