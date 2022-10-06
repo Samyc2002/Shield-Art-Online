@@ -24,7 +24,7 @@ export class AuthController {
 
   static async login(req: Request, res: Response, next: NextFunction) {
     try {
-      const query = req.body.query;
+      const query = req.query;
       const user = await UserDetail.findOne(query);
       if (!user) {
         // if user doesnot exists, create new user
@@ -87,7 +87,7 @@ export class AuthController {
 
   static async getUsers(req: Request, res: Response, next: NextFunction) {
     try {
-      const query = req.body.query;
+      const query = req.query;
       const users = await UserDetail.find(query);
       return res.status(200).json({
         data: users,
@@ -100,7 +100,7 @@ export class AuthController {
 
   static async updateUserData(req: Request, res: Response, next: NextFunction) {
     try {
-      const query = req.body.query;
+      const query = req.query;
       const update = req.body.update;
       const user = await UserDetail.findOneAndUpdate(query, update, {
         new: true
@@ -116,7 +116,7 @@ export class AuthController {
 
   static async deleteUser(req: Request, res: Response, next: NextFunction) {
     try {
-      const query = req.body.query;
+      const query = req.query;
       const user = await UserDetail.findOneAndDelete(query);
       return res.status(200).json({
         data: user,
