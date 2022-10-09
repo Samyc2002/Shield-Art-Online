@@ -14,7 +14,7 @@ This is exactly what you think it is.
   - Body: none
   - Example:
 
-```json
+```js
     Query: {
         "username": "samy",
         "email": "200020040@iitdh.ac.in"
@@ -59,7 +59,7 @@ This is exactly what you think it is.
     - user.isActive: boolean
     - Example:
 
-```json
+```js
     Request: {
         "user": {
             "name": "samy",
@@ -101,7 +101,7 @@ This is exactly what you think it is.
     - update.isActive: boolean
     - Example:
 
-```json
+```js
     Query: {
         "username": "samy",
         "email": "200020040@iitdh.ac.in"
@@ -162,7 +162,7 @@ This is exactly what you think it is.
   - Body: none
     - Example:
 
-```json
+```js
     Query: {
         "username": "samy",
         "email": "200020040@iitdh.ac.in"
