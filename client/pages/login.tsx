@@ -19,8 +19,8 @@ const Login: NextPage = () => {
                 <i/>
             </div>
             <div className={'links'}>
-                <a href="#">Forget password</a>
-                <a href="#">Signup</a>
+                <a href="#">Forgot password?</a>
+                <a href="#">Sign-up</a>
             </div>
             <input type={"submit"} value={"Login"}/>
         </div>
