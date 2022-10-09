@@ -1,10 +1,7 @@
 import type { NextPage } from 'next'
-import Head from 'next/head'
-import Image from 'next/image'
 
 const Login: NextPage = () => {
   return (
-  <div>
     <div className={'box'}>
         <div className={'form'}>
             <h2>Sign-in</h2>
@@ -26,7 +23,6 @@ const Login: NextPage = () => {
         </div>
         
     </div>
-  </div>
   )
 }
 

@@ -4,8 +4,6 @@
     --color1: orange;
     --color2: #FEBA4F;
   }
-  
-
 *{
     margin: 0;
     padding: 0;
@@ -17,11 +15,26 @@ body{
     justify-content: center;
     align-items: center;
     min-height: 100vh;
-    background-image: url(/styles/space.jpg);
     background-color: #23242a;
-    background-position: center;
-    background-repeat: no-repeat;
-    background-size: cover;
+    min-width: 100vw;
+    animation-name: backgroundAnimation 1s ease-in-out !important;
+}
+@keyframes backgroundAnimation{
+    0%{
+        background-position:40% 40%;
+    }
+    50%{
+        background-position:80% 30%;
+    }
+    100%{
+        background-position:40% 40%;
+    }
+}
+
+.PortalArea{
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
 }
 .box{
     position: relative;
@@ -29,6 +42,7 @@ body{
     height: 420px;
     background-color: #1c1c1c;
     border-radius: 8px;
+
     overflow: hidden;
 }
 .box::before{
