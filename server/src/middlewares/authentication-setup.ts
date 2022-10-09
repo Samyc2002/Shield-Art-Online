@@ -10,7 +10,7 @@ export class AuthSetup {
     next: NextFunction
   ) {
     const bearerHeader = req.headers.authorization;
-    console.log(bearerHeader);
+    // console.log(bearerHeader);
 
     if (typeof bearerHeader !== 'undefined') {
       const bearer = bearerHeader.split(' ');
@@ -19,7 +19,7 @@ export class AuthSetup {
         bearerToken,
         getEnvironmentVariables().jwt_secret, // token secret
         (err: any, authdata: any) => {
-          console.log(authdata);
+          // console.log(authdata);
           if (err) {
             res.status(403).json({
               status: 'error',
