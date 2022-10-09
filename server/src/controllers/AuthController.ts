@@ -5,6 +5,7 @@ import { getEnvironmentVariables } from '../environments/env';
 import UserDetail from '../models/User/UserAuthDetails';
 import { sign } from 'jsonwebtoken';
 import * as crypto from 'crypto';
+import * as nodemailer from 'nodemailer';
 export class AuthController {
   static setPassword(password: string) {
     var salt = crypto.randomBytes(16).toString('hex');
@@ -22,6 +23,31 @@ export class AuthController {
     return hash === hashed;
   }
 
+  // static emailVerification(email: string) {
+  //   var transport = nodemailer.createTransport({
+  //     host: 'smtp.mailtrap.io',
+  //     port: 2525,
+  //     auth: {
+  //       user: 'a0720bf2128650',
+  //       pass: 'd3e5b5df12f257'
+  //     }
+  //   });
+
+  //   const message = {
+  //     from: 'shield-art-online@gmail.com',
+  //     to: email,
+  //     subject: 'Email Verification',
+  //     text: 'Please verify your email by clicking on this link!'
+  //   };
+  //   transport.sendMail(message, (err, info) => {
+  //     if (err) {
+  //       console.log(err);
+  //     } else {
+  //       console.log(info);
+  //     }
+  //   });
+  // }
+
   static async login(req: Request, res: Response, next: NextFunction) {
     try {
       const query = req.query;
@@ -38,6 +64,7 @@ export class AuthController {
         });
         await user.save();
         const token = sign(user.toJSON(), getEnvironmentVariables().jwt_secret);
+        // AuthController.emailVerification(user.email);
         const userAuthData = {
           id: user._id,
           name: user.name,
