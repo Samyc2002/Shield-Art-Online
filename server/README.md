@@ -52,7 +52,7 @@ This is exactly what you think it is.
   - Method: POST
   - Query: none
   - Authentication: none
-  - Body:
+  - Body: application/json
     - user.name: string
     - user.email: string
     - user.pass: string
@@ -90,7 +90,7 @@ This is exactly what you think it is.
     - username: string (optional)
     - email: string (optional)
   - Authentication: Bearer token
-  - Body:
+  - Body: application/json
     - update.name: string
     - update.email: string
     - update.level: number
