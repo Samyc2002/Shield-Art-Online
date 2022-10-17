@@ -115,7 +115,27 @@ export class AuthController {
   static async getUsers(req: Request, res: Response, next: NextFunction) {
     try {
       const query = req.query;
-      const users = await UserDetail.find(query);
+      const userData = await UserDetail.find(query);
+      let users: any[] = [];
+      userData.forEach((data) => {
+        var user = {};
+        if (data)
+          Object.keys(data).forEach((rootKey: string) => {
+            if (rootKey === '_doc') {
+              // @ts-ignore
+              Object.keys(data[rootKey]).forEach((key: string) => {
+                if (
+                  key !== 'created_at' &&
+                  key !== 'updated_at' &&
+                  key !== '__v'
+                )
+                  // @ts-ignore
+                  user[key] = data[key];
+              });
+            }
+          });
+        users.push(user);
+      });
       return res.status(200).json({
         data: users,
         success: true
@@ -129,9 +149,21 @@ export class AuthController {
     try {
       const query = req.query;
       const update = req.body.update;
-      const user = await UserDetail.findOneAndUpdate(query, update, {
+      const userData = await UserDetail.findOneAndUpdate(query, update, {
         new: true
       });
+      var user = {};
+      if (userData)
+        Object.keys(userData).forEach((rootKey: string) => {
+          if (rootKey === '_doc') {
+            // @ts-ignore
+            Object.keys(userData[rootKey]).forEach((key: string) => {
+              if (key !== 'created_at' && key !== 'updated_at' && key !== '__v')
+                // @ts-ignore
+                user[key] = userData[key];
+            });
+          }
+        });
       return res.status(200).json({
         data: user,
         success: true
@@ -144,7 +176,19 @@ export class AuthController {
   static async deleteUser(req: Request, res: Response, next: NextFunction) {
     try {
       const query = req.query;
-      const user = await UserDetail.findOneAndDelete(query);
+      const userData = await UserDetail.findOneAndDelete(query);
+      var user = {};
+      if (userData)
+        Object.keys(userData).forEach((rootKey: string) => {
+          if (rootKey === '_doc') {
+            // @ts-ignore
+            Object.keys(userData[rootKey]).forEach((key: string) => {
+              if (key !== 'created_at' && key !== 'updated_at' && key !== '__v')
+                // @ts-ignore
+                user[key] = userData[key];
+            });
+          }
+        });
       return res.status(200).json({
         data: user,
         success: true
