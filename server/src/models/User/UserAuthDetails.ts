@@ -42,6 +42,7 @@ interface IUserDetail {
   jobs: string[];
   weapon: string;
   inventory: string[];
+  maxFloor: Number;
 }
 export type UserDetailDocument = IUserDetail & Document;
 
@@ -57,6 +58,7 @@ const UserDetailSchema: Schema<UserDetailDocument> = new Schema({
   jobs: { type: [String], required: false, default: [] },
   weapon: { type: String, required: false, default: '' },
   inventory: { type: [String], required: false, default: [] },
+  maxFloor: { type: Number, required: false, default: 0 },
   created_at: {
     type: String,
     required: false,
