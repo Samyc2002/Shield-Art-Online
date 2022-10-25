@@ -7,6 +7,7 @@
     "dev": "nodemon --exec ts-node src/index.ts",
     "create-bundle": "tsc && node dist/index.js",
     "start": "node dist/index.js",
+    "postinstall": "tsc",
     "format": "prettier --write \"**/*.{ts,tsx,js,scss}\" && npm run lint:fix",
     "format-check": "prettier --check \"**/*.{ts,tsx,js,scss}\"",
     "prettier-format": "prettier --config .prettierrc 'src/**/*.ts' --write"
