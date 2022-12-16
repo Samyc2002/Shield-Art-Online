@@ -2,7 +2,8 @@ import type { NextPage } from 'next'
 
 const Login: NextPage = () => {
   return (
-    <div className={'box'}>
+    <div>
+        <div className={'box'}>
         <div className={'form'}>
             <h2>Sign-in</h2>
             <div className={'inputBox'}>
@@ -22,6 +23,7 @@ const Login: NextPage = () => {
             <input type={"submit"} value={"Login"}/>
         </div>
         
+    </div>
     </div>
   )
 }
